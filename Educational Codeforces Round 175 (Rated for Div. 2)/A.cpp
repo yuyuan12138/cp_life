@@ -42,18 +42,21 @@ inline void speedup() {
 }
 
 void solve(){
-    ll n, k, p;
-    cin >> n >> k >> p;
-    k = abs(k);
-    if(p * n < k){
-        cout << -1 << "\n";
-        return ;
-    }
-    if(k % p == 0){
-        cout << k / p << "\n";
+    int n; cin >> n;
+    int cnt = (n + 1) / 15;
+    int ans = cnt * 3;
+    int tmp = (n + 1) - cnt * 15;
+    if(tmp == 0){
+        cout << ans << "\n";
+    }else if(tmp == 1){
+        cout << ans + 1 << "\n";
+    }else if(tmp == 2){
+        cout << ans + 2 << "\n";
     }else{
-        cout << k / p + 1 << "\n";
+        cout << ans + 3 << "\n";
     }
+    
+    return ;
 }
 
 int main() {

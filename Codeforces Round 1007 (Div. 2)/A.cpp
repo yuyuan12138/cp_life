@@ -42,18 +42,21 @@ inline void speedup() {
 }
 
 void solve(){
-    ll n, k, p;
-    cin >> n >> k >> p;
-    k = abs(k);
-    if(p * n < k){
-        cout << -1 << "\n";
+    // 1 3 4 
+    int n; cin >> n;
+    if(n == 1){
+        cout << "YES\n";
         return ;
     }
-    if(k % p == 0){
-        cout << k / p << "\n";
-    }else{
-        cout << k / p + 1 << "\n";
+    if ((n - 1) % 3 != 0){
+        cout << "NO\n";
+        return ;
     }
+    cout << "YES\n";
+
+    
+    
+    return ;
 }
 
 int main() {

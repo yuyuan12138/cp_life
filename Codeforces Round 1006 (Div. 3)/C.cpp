@@ -44,30 +44,48 @@ inline void speedup() {
 void solve(){
     int n, x;
     cin >> n >> x;
-    int first_cnt_1_number = 0;
-    int cnt_1 = 0;
-    int tmp = x;
-    bool flag = false;
+    int cur = 0;
     int bit = 0;
-    vector<int> mask(32);
+    vector<int> logits(32);
+    int tmp = x;
     while(x){
         if(x & 1){
-            if(!flag){
-                first_cnt_1_number ++;
-            }
-            cnt_1++;
-            mask[bit] = 1;
-        }else{
-            flag = true;
+            logits[bit] = 1;
         }
         x >>= 1;
-        bit ++;
+        bit++;
     }
+    x = tmp;
+    vector<int> ans;
 
-    if(cnt_1 >= n){
-        
+    auto check = [&](int num){
+        int bit_ = 0;
+        while(num){
+            if((num & 1) && (logits[bit_]) || !(num & 1) && !logits[bit_]){
+                bit_++;
+                num >>= 1;
+                continue;
+            }
+            return false;
+        }
+        return true;
+    };
+    int i = 0;
+    for(; i < n; i++){
+        if(check(cur | i)){
+            ans.push_back(i);
+            cur |= i;
+        }else{
+            ans.push_back(cur);
+        }
     }
-
+    
+    if(cur != x){
+        ans[n - 1] = x;
+    }
+    
+    for(auto& x: ans) cout << x << " ";
+    cout << "\n";
     
 
     return ;
