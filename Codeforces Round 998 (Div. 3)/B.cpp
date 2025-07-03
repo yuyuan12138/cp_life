@@ -73,13 +73,7 @@ void solve(){
             }
         }
     }
-    // if(m == 1){
-    //     for(int i = 1; i <= n; i++){
-    //         cout << idx[i] << " ";
-    //     }
-    //     cout << "\n";
-    //     return ;
-    // }
+    
     int cur = *max_element(first_col.begin(), first_col.end());
     for(int i = 2; i <= m; i++){
         vector<int> new_arr(n + 1);

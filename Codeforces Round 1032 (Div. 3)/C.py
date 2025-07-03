@@ -5,7 +5,7 @@ def main():
     t = int(data[0])
     index = 1
     results = []
-    for _ in range(t):
+    for _ in rane(t):
         n = int(data[index])
         m = int(data[index+1])
         index += 2
