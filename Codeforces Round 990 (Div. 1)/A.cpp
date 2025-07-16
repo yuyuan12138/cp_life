@@ -46,35 +46,47 @@ inline void speedup() {
 void solve(){
     int num_of_columns; 
     cin >> num_of_columns;
+    int ans = 0;
     vector<vector<int>> grids(3, vector<int> (num_of_columns + 1));
     for(int i = 1; i <= 2; i++){
         for(int j = 1; j <= num_of_columns; j ++){
             cin >> grids[i][j];
         }
     }
-    vector<int> idx(num_of_columns);
-    iota(all(idx), 1);
-    vector<int> diff(num_of_columns + 1);
-    for(int i = 1; i <= num_of_columns; i++){
-        diff[i] = grids[1][i] - grids[2][i];
-    }
-    sort(all(idx), [&](int a, int b){
-        return diff[a] > diff[b];
-    });
-    int ans = 0;
-    // bool flag = false;
-    int st = -0x3f3f3f3f;
-    for(int i = 0; i < num_of_columns; i++){
-        if(diff[idx[i]] >= 0){
-            ans += grids[1][idx[i]];
-            st = max(st, grids[2][idx[i]]);
+    int mx = INT32_MIN;
+    for(int j = 1; j <= num_of_columns; j++){
+        ans += max(grids[1][j], grids[2][j]);
+        if(grids[1][j] > grids[2][j]){
+            mx = max(mx, grids[2][j]);
         }else{
-            st = max(st, grids[1][idx[i]]);
-            ans += grids[2][idx[i]];
+            mx = max(mx, grids[1][j]);
         }
-        
     }
-    cout << ans + st << "\n";
+    cout << ans + mx << "\n";
+
+    // vector<int> idx(num_of_columns);
+    // iota(all(idx), 1);
+    // vector<int> diff(num_of_columns + 1);
+    // for(int i = 1; i <= num_of_columns; i++){
+    //     diff[i] = grids[1][i] - grids[2][i];
+    // }
+    // sort(all(idx), [&](int a, int b){
+    //     return diff[a] > diff[b];
+    // });
+    // int ans = 0;
+    // // bool flag = false;
+    // int st = -0x3f3f3f3f;
+    // for(int i = 0; i < num_of_columns; i++){
+    //     if(diff[idx[i]] >= 0){
+    //         ans += grids[1][idx[i]];
+    //         st = max(st, grids[2][idx[i]]);
+    //     }else{
+    //         st = max(st, grids[1][idx[i]]);
+    //         ans += grids[2][idx[i]];
+    //     }
+        
+    // }
+    // cout << ans + st << "\n"; 
     return ;
 }
 

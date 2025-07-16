@@ -58,13 +58,31 @@ bool is_prime(const T num){
     return true;
 }
 
+template<typename T>
+vector<T> eratosthenes(const T n){
+    vector<T> primes;
+    vector<bool> is_primes(n + 1, true);
+    for(T i = 2; i <= n; i++){
+        if(is_primes[i]){
+            primes.push_back(i);
+            for(T j = i * 2; j <= n; j += i){
+                is_primes[j] = false;
+            }
+        }
+    }
+    return primes;
+}
+
 void solve(){
     int n; cin >> n;
     int cnt = 0;
+    auto primes = eratosthenes(n);
     for(int i = 1; i <= n; i++){
-        for(int j = i + 1; j <= n; j++){
-            if(is_prime(lcm(i, j) / gcd(i, j))){
+        for(int j = 0; j < primes.size(); j++){
+            if(primes[j] * i <= n){
                 cnt++;
+            }else{
+                break;
             }
         }
     }

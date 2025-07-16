@@ -44,14 +44,38 @@ inline void speedup() {
 
 void solve(){
     int n; cin >> n;
-    int idx =0;
-    for(int _ = 0; _ < n; _++){
-        for(int _ = 0; _ < n; _++){
-            cout << idx << " ";
-            idx++;
+    vector<pair<int, int>> dir = {
+        {0, 1}, {1, 0}, {0, -1}, {-1, 0}
+    };
+
+    int idx = 0;
+    vector<vector<int>> ans(n + 1, vector<int>(n + 1));
+    int pos_x = 1, pos_y = 1;
+    int num = n * n - 1;
+    while(num >= 1){
+        ans[pos_x][pos_y] = num;
+        num--;
+        if(idx == 0 && (pos_y == n || ans[pos_x][pos_y + 1] != 0)){
+            idx = 1;
+        }else if(idx == 1 && (pos_x == n || ans[pos_x + 1][pos_y] != 0)){
+            idx = 2;
+        }else if(idx == 2 && (pos_y == 1 || ans[pos_x][pos_y - 1] != 0)){
+            idx = 3;
+        }else if(idx == 3 && (pos_x == 1 || ans[pos_x - 1][pos_y] != 0)){
+            idx = 0;
+        }
+
+        auto [x, y] = dir[idx];
+        pos_x += x, pos_y += y;
+    }
+
+    for(int i = 1; i <= n; i++){
+        for(int j = 1; j <= n; j++){
+            cout << ans[i][j] << " ";
         }
         cout << "\n";
     }
+    
     return ;
 }
 
