@@ -44,7 +44,18 @@ inline void speedup() {
 }
 
 void solve(){
-    
+    int w, b; cin >> w >> b;
+    ll tot = w + b;
+    ll l = 0, r = 1e9;
+    while(l <= r){
+        ll mid = (l + r) / 2;
+        if((mid + 1) * mid / 2 > tot){
+            r = mid - 1;
+        }else{
+            l = mid + 1;
+        }
+    }
+    cout << r << "\n";
     return ;
 }
 

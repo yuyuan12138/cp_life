@@ -22,13 +22,7 @@ void solve(){
         if(cnt_num.find(a[i]) == cnt_num.end()) cnt_num[a[i]] = 0;
         cnt_num[a[i]]++;
     }
-    vector<pii> nums;
-    for(auto it = cnt_num.begin(); it != cnt_num.end(); it++){
-        nums.push_back({it->first, it->second});
-    }
-    // sort(all(nums), [](const pii& a, const pii& b){
-    //     return a.first < b.first;
-    // });
+    vector<pii> nums(all(cnt_num));
     
     int slow = 0;
     int cur_k = 1;
