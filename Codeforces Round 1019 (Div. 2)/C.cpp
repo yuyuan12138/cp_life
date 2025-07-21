@@ -1,74 +1,98 @@
-/*** 
- * @Author: yuyuan 115848824+yuyuan12138@users.noreply.github.com
- * @Date: 2025-06-17 15:59:02
- * @LastEditors: yuyuan 115848824+yuyuan12138@users.noreply.github.com
- * @LastEditTime: 2025-06-17 16:05:22
- * @FilePath: \Codeforces Round 1019 (Div. 2)\C.cpp
- * @Description: 
- * @
- * @Copyright (c) ${Date} by ${115848824+yuyuan12138@users.noreply.github.com}, All Rights Reserved. 
- */
-
-#include <iostream>
-#include <algorithm>
-#include <cmath>
-#include <cstdio>
-#include <string> 
-#include <string.h>
-#include <cstring>
-#include <vector>
-#include <queue>    
-#include <map>      
-#include <stack>   
-#include <list>    
-#include <bitset>  
-#include <forward_list> 
-#include <deque>   
-#include <set>     
-#include <tuple>   
-#include <utility>  
-#include <numeric> 
-#include <iomanip> 
-#include <sstream>  
-#include <fstream>  
-#include <chrono>   
-#include <random>   
-#include <complex>   
-#include <functional> 
-#include <cassert>
-#include <climits>   
-#include <limits>     
-#include <tuple>     
-#include <cstdint>   
-#include <array>
-#define int long long
-#define ll long long
-#define endl "\n"
-#define Yes cout << "Yes" << endl;
-#define YES cout << "YES" << endl;
-#define No cout << "No" << endl;
-#define NO cout << "NO" << endl;
-#define printv(v) for(auto& x: (v)) cout << x << " "; cout << endl;
-#define maxv(v) *max_element(v.begin(), v.end())
-#define minv(v) *min_element(v.begin(), v.end())
-#define rep(i, n, m) for(int (i)=(n);(i)<=(m);(i)++)
-#define println(a) cout << a << endl;
-#define repd(i,n,m) for(int (i)=(n);(i)>=(m);(i)--)
+#include <bits/stdc++.h>
 
 using namespace std;
 
-const int maxn = 100000 + 5;
+#define all(x) (x).begin(), (x).end()
 
+using ll = long long;
+using pii = pair<int, int>;
+
+inline void speedup() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+}
 
 void solve(){
+    int n, k; cin >> n >> k;
+    vector<int> a(n + 1);
+    vector<int> prefix_sum(n + 1);
+    vector<int> suffix_sum(n + 2);
+
+    vector<int> prefix_min(n + 1, INT32_MAX);
+    vector<int> suffix_min(n + 2, INT32_MAX);
+    for(int i = 1, x; i <= n; i++){
+        cin >> x;
+        if(x <= k){
+            a[i] = 1;
+        }else{
+            a[i] = -1;
+        }
+        prefix_sum[i] = prefix_sum[i - 1] + a[i];
+        prefix_min[i] = min(prefix_min[i - 1], prefix_sum[i]);
+    }
+
+    
+    for(int i = n; i >= 1; i--){
+        suffix_sum[i] = suffix_sum[i + 1] + a[i];
+        suffix_min[i] = min(suffix_sum[i], suffix_min[i + 1]);
+    }
+    
+    if([&]() -> bool {
+        // prefix and median
+        for(int i = 1; i <= n - 2; i++){
+            if(prefix_sum[i] >= 0 && prefix_sum[n] - prefix_sum[i] - suffix_min[i + 2] >= 0){
+                cout << "YES\n";
+                return true;
+            }
+        }
+        return false;
+    }()){
+        return ;
+    };
+
+    if([&]() -> bool {
+        // median and suffix
+        for(int i = n; i >= 3; i--){
+            if(suffix_sum[i] >= 0 && suffix_sum[1] - suffix_sum[i] - prefix_min[i - 2] >= 0){
+                cout << "YES\n";
+                return true;
+            }
+        }
+        return false;
+    }()){
+        return ;
+    }
+
+    if([&]() -> bool {
+        int idx = -1;
+        for(int i = 1; i <= n - 2; i++){
+            if(prefix_sum[i] >= 0){
+                idx = i;
+                break;
+            }
+        }
+        if(idx == -1){
+            return false;
+        }
+        for(int i = idx + 2; i <= n; i++){
+            if(suffix_sum[i] >= 0){
+                cout << "YES\n";
+                return true;
+            }
+        }
+        return false;
+    }()){
+        return ;
+    }
+    
+    cout << "NO\n";
     
     return ;
 }
 
-signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr); 
-    cout.tie(nullptr);
+int main() {
+    speedup();
     int t; cin >> t;
     while(t--) solve();
     return 0;
