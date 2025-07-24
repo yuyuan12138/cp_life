@@ -1,117 +1,63 @@
-#include <iostream>
-#include <algorithm>
-#include <cmath>
-#include <cstdio>
-#include <string> 
-#include <string.h>
-#include <cstring>
-#include <vector>
-#include <queue>
-#include <map>
-#include <stack>
-#include <list>
-#include <bitset>
-#include <forward_list>
-#include <deque>
-#include <set>
-#include <tuple>
-#include <utility>
-#include <numeric>
-#include <iomanip>
-#include <sstream>
-#include <fstream>
-#include <chrono>
-#include <random>
-#include <complex>
-#include <functional>
-#include <cassert>
-#include <climits>
-#include <limits>
-#include <tuple>
-#include <cstdint>
-#include <array>
+#include <bits/stdc++.h>
+
 using namespace std;
 
-// ==================== 优化指令 ===================
-#pragma GCC optimize("O3,unroll-loops")
-#pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
-
-// ==================== 类型定义 ===================
-using ll = long long;
-using ull = unsigned long long;
-using db = double;
-using ld = long double;
-using pii = pair<int, int>;
-using pll = pair<ll, ll>;
-using vi = vector<int>;
-using vl = vector<ll>;
-using vvi = vector<vi>;
-using vvl = vector<vl>;
-
-// ==================== 宏定义 =====================
-#define FOR(i, a, b) for (int i = (a); i <= (b); i++)
-#define REP(i, n) for (int i = 0; i < (n); i++)
-#define ROF(i, a, b) for (int i = (a); i >= (b); i--)
 #define all(x) (x).begin(), (x).end()
-#define sz(x) ((int)(x).size())
-#define pb push_back
-#define eb emplace_back
-#define mp make_pair
-#define fi first
-#define se second
 
-// ==================== 常量定义 ===================
-const int INF = 0x3f3f3f3f;     // 10亿级整数无穷大
-const ll LLINF = 0x3f3f3f3f3f3f3f3f; // 10^18级LL无穷大
-const int MOD = 1e9 + 7;        // 常用质数模数
-const ld EPS = 1e-8;            // 浮点比较容差
-const db PI = acos(-1.0);       // 圆周率
+using ll = long long;
+using pii = pair<int, int>;
 
-// ==================== 调试宏 =====================
-#ifdef LOCAL
-#define debug(...) cerr << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__)
-#else
-#define debug(...) 42
-#endif
-void debug_out() { cerr << endl; }
-template <typename Head, typename... Tail>
-void debug_out(Head H, Tail... T) {
-    cerr << " " << H;
-    debug_out(T...);
-}
-
-// ==================== 输入输出优化 ================
 inline void speedup() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
 }
 
-// ==================== 常用函数 ===================
-// 快速幂 (a^b mod m)
-ll qpow(ll a, ll b, ll m = MOD) {
-    ll res = 1;
-    a %= m;
-    while (b) {
-        if (b & 1) res = (res * a) % m;
-        a = (a * a) % m;
-        b >>= 1;
+/**
+ *  Problem statement: 
+ *      1. a, b, k; integer. Two people: A and H
+ *      2. A gives H Two integer: n and m.
+ *          then H gives A a matrix: X with n rows and m cols. Between [1, k].
+ *      3. A wins: 
+ *          1. find a submatrix Y of X with a rows and b cols that all elements of Y are equal.
+ *      
+ *      4. find the lexicographically minimum tuple (n,m). 
+ *  
+ *  Observation:
+ *      1. n * m >= a * b;
+ *      2. We can choose any number in the [1, k] to match the rule of winner.
+ *      3. 在n * m 中至少有一个元素大于等于 a * b 个。
+ *          1. If k >= a * b: 
+ *              
+ */
+
+template<typename T>
+T power_with_mod(T base, T exp, T mod) {
+    if(exp == 0) return 1;
+    if(exp == 1) return base;
+    if(exp % 2){
+        return (power_with_mod(base, exp / 2, mod) % mod) * (power_with_mod(base, exp / 2, mod) % mod) % mod * base % mod;
     }
-    return res;
+    return (power_with_mod(base, exp / 2, mod) % mod) * (power_with_mod(base, exp / 2, mod) % mod) % mod;
 }
 
-// 最大公约数
-ll gcd(ll a, ll b) { return b ? gcd(b, a % b) : a; }
-
-// 最小公倍数
-ll lcm(ll a, ll b) { return a / gcd(a, b) * b; }
-
 void solve(){
-    
+    const ll MOD = 1e9 + 7;
+    ll a, b, k; cin >> a >> b >> k;
+    ll n = (k % MOD * (a - 1) % MOD + 1LL) % MOD;
+    a = min((n - a + MOD) % MOD, a);
+    ll m = 1;
+    ll inv = 1;
+    for(int i = 1; i <= a; i++){
+        m = m % MOD * (n - i + 1) % MOD;
+        m = m % MOD * power_with_mod((i + MOD) % MOD, MOD - 2, MOD) % MOD;
+    }
+    m = m % MOD * (b - 1) % MOD * k % MOD + 1LL;
+    cout << n % MOD << " " << m % MOD << "\n";
     return ;
 }
 
-signed main() {
+int main() {
     speedup();
     int t; cin >> t;
     while(t--) solve();
