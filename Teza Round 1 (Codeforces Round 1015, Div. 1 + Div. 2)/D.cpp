@@ -15,7 +15,16 @@ inline void speedup() {
 
 void solve(){
     int n, m, k; cin >> n >> m >> k;
-    
+    int cur = 0;
+    k = max(k, n / (m + 1));
+    for(int i = 1; i <= n; i++){
+        if(cur == k){
+            cur = 0;
+        }
+        cout << cur << " ";
+        cur++;
+    }
+    cout << "\n";
     return ;
 }
 
