@@ -26,8 +26,8 @@ int main() {
     cin.tie(0);
     int t;
     cin >> t;
-    while (t--) {
+    while (t--) 
         solve();
-    }
+    
     return 0;
 }
