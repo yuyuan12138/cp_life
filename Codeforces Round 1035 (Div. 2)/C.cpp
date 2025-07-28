@@ -1,40 +1,20 @@
-#include <iostream>
-#include <algorithm>
-#include <cmath>
-#include <cstdio>
-#include <string> 
-#include <string.h>
-#include <cstring>
-#include <vector>
-#include <queue>
-#include <map>
-#include <stack>
-#include <list>
-#include <bitset>
-#include <forward_list>
-#include <deque>
-#include <set>
-#include <tuple>
-#include <utility>
-#include <numeric>
-#include <iomanip>
-#include <sstream>
-#include <fstream>
-#include <chrono>
-#include <random>
-#include <complex>
-#include <functional>
-#include <cassert>
-#include <climits>
-#include <limits>
-#include <tuple>
-#include <cstdint>
-#include <array>
+/**
+ *      author:  yuyuan567
+ *      created: 2025-07-28 13:22:55
+ */
+#include <bits/stdc++.h>
 
 using namespace std;
-using data = int;
 
-#define ll long long
+#ifdef LOCAL
+#include "../../algo/debug.h"
+#else
+#define debug(...) 42
+#endif
+
+#define all(x) (x).begin(), (x).end()
+
+using ll = long long;
 
 inline void speedup() {
     ios::sync_with_stdio(false);
@@ -42,29 +22,40 @@ inline void speedup() {
     cout.tie(nullptr);
 }
 
-void solve(){
+void solve() {
     ll n, l, r, k;
     cin >> n >> l >> r >> k;
-
-    if(n == 1 || n % 2 == 1){
+    if (n & 1) {
         cout << l << "\n";
-        return ;
+    } else {
+        if (n == 2) {
+            cout << "-1\n";
+        } else {
+            ll res = 1LL;
+            while (res <= r) {
+                if (res > l) {
+                    if (k <= n - 2) {
+                        cout << l << "\n";
+                    } else {
+                        cout << res << "\n";
+                    }
+
+                    return;
+                }
+                res <<= 1;
+            }
+            cout << "-1\n";
+        }
     }
-    
-    if(n == 2){
-        cout << "-1\n";
-        return ;
-    }
 
-    
-
-
-    return ;
+    return;
 }
 
 int main() {
     speedup();
-    int t; cin >> t;
-    while(t--) solve();
+    int t;
+    cin >> t;
+    while (t--)
+        solve();
     return 0;
 }

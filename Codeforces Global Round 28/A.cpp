@@ -1,11 +1,20 @@
+/**
+ *      author:  yuyuan567
+ *      created: 2025-07-28 15:29:21
+ */
 #include <bits/stdc++.h>
 
 using namespace std;
 
+#ifdef LOCAL
+#include "../../algo/debug.h"
+#else
+#define debug(...) 42
+#endif
+
 #define all(x) (x).begin(), (x).end()
 
 using ll = long long;
-using pii = pair<int, int>;
 
 inline void speedup() {
     ios::sync_with_stdio(false);
@@ -14,15 +23,13 @@ inline void speedup() {
 }
 
 void solve() {
-    ll x, m;
-    cin >> x >> m;
-    ll ans = 0;
-    for (ll y = 1; y <= min(2LL * x, m); y++) {
-        if (y != x && ((x % (y ^ x) == 0) || (y % (y ^ x) == 0))) {
-            ans++;
-        }
+    int n;
+    cin >> n;
+    if (n % 33 == 0) {
+        cout << "YES\n";
+    } else {
+        cout << "NO\n";
     }
-    cout << ans << "\n";
     return;
 }
 
