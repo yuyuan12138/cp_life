@@ -26,7 +26,7 @@ void solve() {
         for (int j = 0; j < m; j++) {
             if (grids[i][j] == '#') {
                 cnt++;
-            }
+}
         }
     }
     if (cnt == 1) {
