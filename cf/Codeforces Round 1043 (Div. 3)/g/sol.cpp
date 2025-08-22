@@ -64,7 +64,7 @@ int main() {
     const uint64_t BR1 = 911382323ULL;
     const uint64_t BC1 = 972663749ULL;
     const uint64_t BR2 = 972663541ULL;
-    const uint64_t BC2 = 911382323ULL;
+    const uint64_t BC2 = 911382322ULL;
     while (tt--) {
         int n, m;
         std::cin >> n >> m;

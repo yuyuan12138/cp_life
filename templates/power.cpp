@@ -1,15 +1,15 @@
-int power(int a, ll b, int p) {
+int power(int a, int64_t b, int p) {
     int res = 1;
-    for (; b; b /= 2, a = 1LL * a * a % p) {
+    for (; b; b /= 2, a = int64_t(1) * a * a % p) {
         if (b % 2) {
-            res = 1LL * res * a % p;
+            res = int64_t(1) * res * a % p;
         }
     }
     return res;
 }
 
-ll mul(ll a, ll b, ll p) {
-    ll c = a * b - ll(1.0L * a * b / p) * p;
+int64_t mul(int64_t a, int64_t b, int64_t p) {
+    int64_t c = a * b - int64_t(1.0L * a * b / p) * p;
     c %= p;
     if (c < 0) {
         c += p;
@@ -17,8 +17,8 @@ ll mul(ll a, ll b, ll p) {
     return c;
 }
 
-ll power(ll a, ll b, ll p) {
-    ll res = 1;
+int64_t power(int64_t a, int64_t b, int64_t p) {
+    int64_t res = 1;
     for (; b; b /= 2, a = mul(a, a, p)) {
         if (b % 2) {
             res = mul(res, a, p);
