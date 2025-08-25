@@ -4,6 +4,7 @@
  */
 #include <bits/stdc++.h>
 
+
 #ifdef LOCAL
 #include "algo/debug.h"
 #else
