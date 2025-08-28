@@ -21,7 +21,6 @@ void solve(){
         }
         cout << "\n";
     }else{
-        
         if(n <= 25){
             cout << -1 << "\n";
         }else{
@@ -39,7 +38,6 @@ void solve(){
                     }
                     cout << idx << " ";
                     cnt ++;
-
                 }
             }
             cout << "\n";
