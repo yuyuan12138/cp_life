@@ -17,6 +17,5 @@ using i128 = __int128;
 signed main() {
     std::ios::sync_with_stdio(false);
     std::cin.tie(nullptr);
-
     return 0;
 }

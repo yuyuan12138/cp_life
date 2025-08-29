@@ -1,4 +1,3 @@
-# 风格：Google, LLVM, Chromium, Mozilla, WebKit, Microsoft, GUN
 BasedOnStyle: Google
 # 语言: None, Cpp, Java, JavaScript, ObjC, Proto, TableGen, TextProto
 Language: Cpp
