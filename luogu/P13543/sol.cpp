@@ -30,26 +30,14 @@ int main() {
     int64_t ans = 0;
     for (auto& [_, vec] : x_color) {
         std::sort(vec.begin(), vec.end());
-        int cur = 1;
         for (int i = 0; i < vec.size() - 1; i++) {
-            if (i < vec.size() - 1 && vec[i] == vec[i + 1]) {
-                cur++;
-            } else {
-                ans += cur * (vec.back() - vec[i]);
-                cur = 1;
-            }
+            ans += (vec[i + 1] - vec[i]) * (i + 1) * (vec.size() - i - 1);
         }
     }
     for (auto& [_, vec] : y_color) {
         std::sort(vec.begin(), vec.end());
-        int cur = 1;
         for (int i = 0; i < vec.size() - 1; i++) {
-            if (i < vec.size() - 1 && vec[i] == vec[i + 1]) {
-                cur++;
-            } else {
-                ans += cur * (vec.back() - vec[i]);
-                cur = 1;
-            }
+            ans += (vec[i + 1] - vec[i]) * (i + 1) * (vec.size() - i - 1);
         }
     }
     std::cout << ans;
