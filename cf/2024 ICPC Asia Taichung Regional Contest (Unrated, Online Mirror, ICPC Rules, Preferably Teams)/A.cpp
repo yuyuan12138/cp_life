@@ -13,14 +13,15 @@ inline void speedup() {
     cout.tie(nullptr);
 }
 
-void solve(){
-    
-    return ;
+void solve() {
+    return;
 }
 
 int main() {
     speedup();
-    int t; cin >> t;
-    while(t--) solve();
+    int t;
+    cin >> t;
+    while (t--)
+        solve();
     return 0;
 }

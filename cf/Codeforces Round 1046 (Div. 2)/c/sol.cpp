@@ -26,14 +26,20 @@ int main() {
         }
         std::vector<int> f(n);
         int ans = 0;
+        auto find = [&](int x, int idx) -> int {
+            auto it = std::lower_bound(vec[x].begin(), vec[x].end(), idx);
+            int id = std::distance(vec[x].begin(), it);
+            return id;
+        };
         for (int i = 0; i < n; i++) {
             if (i == 0) {
                 if (a[i] == 1) {
                     f[i] = 1;
                 }
             } else {
-                int sz = vec[a[i]].size();
-                int idx = sz - a[i];
+                int idx = find(a[i], i);
+                idx -= a[i];
+                idx++;
                 if (idx < 0) {
                     f[i] = f[i - 1];
                 } else {
